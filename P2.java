@@ -19,8 +19,8 @@ public class P2 {
                 webPage.printTerms();
             }
             if (reachedEOF) {
-                for (String appearence : webPage.whichPages(command)) {
-                    System.out.println(appearence);
+                for (String appearance : webPage.whichPages(command)) {
+                    System.out.println(appearance);
                 }
             }
 
