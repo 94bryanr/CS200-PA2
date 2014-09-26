@@ -8,7 +8,7 @@ public class Term implements Comparable {
     private int docFrequency;
     //Array of occurrences, each contain the number of times the word was in a specified document
     //TODO: Make this a linked list!
-    private ArrayList<Occurrence> docsList = new ArrayList<Occurrence>();
+    private LinkedOccurrence docsList = new LinkedOccurrence();
 
     //Constructor
     public Term(String name) {

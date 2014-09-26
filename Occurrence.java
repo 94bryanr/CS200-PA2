@@ -3,6 +3,8 @@ public class Occurrence {
     private String docName;
     //Number of times Term object occurs in *docName*. Word count
     private int termFrequency;
+    //Next occurrence in linked list
+    public Occurrence next;
 
     //Constructor
     public Occurrence(String name){
@@ -23,5 +25,9 @@ public class Occurrence {
     //Get number of times the word appear
     public int getTermFrequency() {
         return termFrequency;
+    }
+
+    public void printOcc(){
+        System.out.println("Occurrence: " + docName + " " + termFrequency);
     }
 }
