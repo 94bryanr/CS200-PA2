@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class LinkedOccurrence {
     private Occurrence head;
 
@@ -19,5 +21,27 @@ public class LinkedOccurrence {
             head = head.next;
         }
         head = temp;
+    }
+
+    public int getSize(){
+        int counter = 0;
+        Occurrence temp = head;
+        while(head != null){
+            counter++;
+            head = head.next;
+        }
+        head = temp;
+        return counter;
+    }
+
+    public ArrayList<Occurrence> toArray(){
+        ArrayList<Occurrence> array = new ArrayList<Occurrence>();
+        Occurrence temp = head;
+        while(head != null){
+            array.add(head);
+            head = head.next;
+        }
+        head = temp;
+        return array;
     }
 }

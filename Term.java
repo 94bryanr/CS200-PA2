@@ -24,9 +24,9 @@ public class Term implements Comparable {
     //Updates docsList by one term occurring in *document*
     public void addNewOccurrence(String document) {
         boolean add = false;
-        if (docsList.size() == 0)
+        if (docsList.getSize() == 0)
             add = true;
-        for (Occurrence occ : docsList) {
+        for (Occurrence occ : docsList.toArray()) {
             add = false;
             if (occ.getDocName().equals(document)) {
                 occ.incFrequency();
@@ -35,7 +35,7 @@ public class Term implements Comparable {
             }
         }
         if (add) {
-            docsList.add(new Occurrence(document));
+            docsList.insert(document);
         }
     }
 
@@ -52,14 +52,14 @@ public class Term implements Comparable {
     //Returns total count of the word in all documents
     public int getTotalFrequency() {
         int total = 1;
-        for (Occurrence occ : docsList) {
+        for (Occurrence occ : docsList.toArray()) {
             total += occ.getTermFrequency();
         }
         return total;
     }
 
     public ArrayList<Occurrence> getDocsList() {
-        return docsList;
+        return docsList.toArray();
     }
 
     @Override
