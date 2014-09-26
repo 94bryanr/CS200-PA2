@@ -1,6 +1,6 @@
-*.idea
-*.txt
-*.class
-*.iml
-*.DS_Store
-*.xml
+*
+!HTMLParser.java
+!Occurrence.java
+!P2.java
+!Term.java
+!WebPages.java
