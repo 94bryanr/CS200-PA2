@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
     private ArrayList<Term> termIndex;
+    private int mergecount;
 
     //Constructor
     public WebPages(){
@@ -51,46 +52,33 @@ public class WebPages {
         }
     }
 
-       public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
+    public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
+
         ArrayList<Term> leftSide = new ArrayList<Term>();
         ArrayList<Term> rightSide = new ArrayList<Term>();
         int mid =0;
-
-        if (sortType =0){
-            if (list.size()<=1){
-                return list;
-             }
-              else {
-                mid = list.size()/2;
-                for (int i =0; i<mid;i++){
-                    leftSide.add(list.get(i).getName());
-                 }
-                for (int j = mid; j<list.size(); j++){
-                     rightSide.add(list.get(j).getName());
-                }
-            mergeSort(leftSide,0,mid,0);
-            mergeSort(rightSide,mid+1,size,0);
-
-            list = merge (leftSide,rightSide,list);
-        }
-    }
-    else{
-        if (list.size() <=1){
+        if (list.size()<=1){
             return list;
         }
-         else {
-            mid = list.size()/2;
-            for (int i =0; i<mid;i++){
-                leftSide.add(list.get(i).getTotalFrequency());
+        else {
+           mid = list.size()/2;
+           for (int i =0; i<mid;i++){
+                leftSide.add(list.get(i));
             }
-            for (int j = mid; j<list.size(); j++){
-                rightSide.add(list.get(j).getTotalFrequency());
-            }
-            mergeSort(leftSide,0,mid,1);
-            mergeSort(rightSide,mid+1,size,1);
+           for (int j = mid; j<list.size(); j++){
+                rightSide.add(list.get(j));
+           }
+           if (sortType =0){
+                mergeSort(leftSide,0,mid,0);
+                mergeSort(rightSide,mid+1,size,0);
+                list = merge (leftSide,rightSide,list);
+           }
+           else{
+                mergeSort(leftSide,0,mid,1);
+                mergeSort(rightSide,mid+1,size,1);
+                list = merge (leftSide,rightSide,list);
+                }
 
-            list = merge (leftSide,rightSide,list);
-        }
     }
         return list;
     }
@@ -99,27 +87,31 @@ public class WebPages {
         int left = 0;
         int right = 0;
         int total = 0;
+        mergecount =0;
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
             if (sign = 0){
                 if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
                     wholeS.set(total,leftS.get(left));
                     left++;
+                    mergecount++;
                 }
-                 else{
-                wholeS.set(total, rightS.get(right));
-                right++;
-                 }
+                else{
+                    wholeS.set(total, rightS.get(right));
+                    right++;
+                }
                 total++;
                 }
             else {
-                if ((leftS.get(left) <= (rightS.get(right))){
+                if ((leftS.get(left).getTotalFrequency() <= (rightS.get(right).getTotalFrequency())){
                     wholeS.set(total,leftS.get(left));
                     left++;
+                    mergecount++;
                 }
                 else{
                     wholeS.set(total, rightS.get(right));
                     right++;
                  }
+                total++;
                 }
         }
         ArrayList<Term> finished;
@@ -137,23 +129,17 @@ public class WebPages {
             wholeS.set(total,finished.get(i));
             total++;
         }
-        System.out.println(wholeS);
+        System.out.println("number of times:" + mergecount);
         return wholeS;
     }
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
-        System.out.println("pruneStopWords not yet implemented");
-        //Use mergesort
         termIndex = mergeSort(termIndex,0,termIndex.size(),1)
         for (int i = 0; i <= n; i++){
             termIndex.remove(termIndex.size()-1);
         }
         termIndex = mergeSort(termIndex,0,termIndex.size(),0);
-        //Sort by term frequency
-        //Remove most frequent terms
-        //Sort by alphabetic order
-        //Return array
     }
 
     //Prints which pages *word* exist on
