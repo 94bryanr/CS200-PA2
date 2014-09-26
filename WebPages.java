@@ -51,58 +51,88 @@ public class WebPages {
         }
     }
 
-    public ArrayList<String> mergeSort (ArrayList<String> list, int first, int last){
-        ArrayList<String> leftSide = new ArrayList<String>();
-        ArrayList<String> rightSide = new ArrayList<String>();
+       public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
+        ArrayList<Term> leftSide = new ArrayList<Term>();
+        ArrayList<Term> rightSide = new ArrayList<Term>();
         int size = list.size();
         int mid =0;
-        if (list.size()<=1){
+        if (sortType =0){
+            if (list.size()<=1){
+                return list;
+             }
+              else {
+                mid = list.size()/2;
+                for (int i =0; i<mid;i++){
+                    leftSide.add(list.get(i).getName());
+                 }
+                for (int j = mid; j<list.size(); j++){
+                     rightSide.add(list.get(j).getName());
+                }
+            mergeSort(leftSide,0,mid,0);
+            mergeSort(rightSide,mid+1,size,0);
+
+            list = merge (leftSide,rightSide,list);
+        }
+    }
+    else{
+        if (list.size() <=1){
             return list;
         }
-        else {
+         else {
             mid = list.size()/2;
             for (int i =0; i<mid;i++){
-                leftSide.add(list.get(i));
+                leftSide.add(list.get(i).getTotalFrequency());
             }
             for (int j = mid; j<list.size(); j++){
-                rightSide.add(list.get(j));
+                rightSide.add(list.get(j).getTotalFrequency());
             }
-        //System.out.println("this is the leftside " + leftSide);
-        //System.out.println("this is the rightside " + rightSide);
-            mergeSort(leftSide,0,mid);
-            mergeSort(rightSide,mid+1,size);
-            list = merge(leftSide,rightSide,list);
+            mergeSort(leftSide,0,mid,1);
+            mergeSort(rightSide,mid+1,size,1);
+
+            list = merge (leftSide,rightSide,list);
         }
-        //System.out.println("final: " + list);
+    }
         return list;
     }
 
-    private ArrayList<String> merge (ArrayList<String> leftS,ArrayList<String> rightS,ArrayList<String> wholeS){
+    private ArrayList<Term> merge (ArrayList<Term> leftS,ArrayList<Term> rightS,ArrayList<Term> wholeS, int sign){
         int left = 0;
         int right = 0;
         int total = 0;
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
-            if ((leftS.get(left).compareTo(rightS.get(right)) < 0)){
-                wholeS.set(total,leftS.get(left));
-                left++;
-            }
-            else{
+            if (sign = 0){
+                if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
+                    wholeS.set(total,leftS.get(left));
+                    left++;
+                }
+                 else{
                 wholeS.set(total, rightS.get(right));
                 right++;
-            }
-            total++;
+                 }
+                total++;
+                }
+                else {
+                    if ((leftS.get(left) <= (rightS.get(right))){
+                    wholeS.set(total,leftS.get(left));
+                    left++;
+                }
+                 else{
+                wholeS.set(total, rightS.get(right));
+                right++;
+                 }
+                }
         }
-        ArrayList<String> finished;
+        ArrayList<Term> finished;
         int last=0;
         if (left>=leftS.size()){
             finished = rightS;
             last = right;
         }
+
         else{
             finished = leftS;
             last = left;
         }
-        //System.out.println(finished);
         for (int i = last; i<finished.size();i++){
             wholeS.set(total,finished.get(i));
             total++;
