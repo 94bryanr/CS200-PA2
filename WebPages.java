@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
     private ArrayList<Term> termIndex;
-    private int mergecount;
 
     //Constructor
     public WebPages(){
@@ -68,15 +67,15 @@ public class WebPages {
            for (int j = mid; j<list.size(); j++){
                 rightSide.add(list.get(j));
            }
-           if (sortType =0){
+           if (sortType == 0){
                 mergeSort(leftSide,0,mid,0);
-                mergeSort(rightSide,mid+1,size,0);
-                list = merge (leftSide,rightSide,list);
+                mergeSort(rightSide,mid+1,list.size(),0);
+                list = merge (leftSide,rightSide,list, 0);
            }
            else{
                 mergeSort(leftSide,0,mid,1);
-                mergeSort(rightSide,mid+1,size,1);
-                list = merge (leftSide,rightSide,list);
+                mergeSort(rightSide,mid+1,list.size(),1);
+                list = merge (leftSide,rightSide,list, 1);
                 }
 
     }
@@ -87,7 +86,7 @@ public class WebPages {
         int left = 0;
         int right = 0;
         int total = 0;
-        mergecount =0;
+        int mergecount =0;
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
             if (sign == 0){
                 if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
@@ -102,11 +101,11 @@ public class WebPages {
                 total++;
                 }
             else {
-                if ((leftS.get(left).getTotalFrequency() <= (rightS.get(right).getTotalFrequency())){
+                if (leftS.get(left).getTotalFrequency() <= rightS.get(right).getTotalFrequency()){
                     wholeS.set(total,leftS.get(left));
                     left++;
                     mergecount++;
-                }
+                    }
                 else{
                     wholeS.set(total, rightS.get(right));
                     right++;
@@ -114,14 +113,12 @@ public class WebPages {
                 total++;
                 }
             }
-        }
         ArrayList<Term> finished;
-        int last=0;
-        if (left>=leftS.size()){
+        int last= 0;
+        if(left >= leftS.size()){
             finished = rightS;
             last = right;
         }
-
         else{
             finished = leftS;
             last = left;
@@ -130,13 +127,13 @@ public class WebPages {
             wholeS.set(total,finished.get(i));
             total++;
         }
-        System.out.println("number of times:" + mergecount);
+        //System.out.println("number of times:" + mergecount);
         return wholeS;
     }
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
-        //Use mergesort
+        //Use merge sort
         termIndex = mergeSort(termIndex,0,termIndex.size(),1);
         for (int i = 0; i <= n; i++){
             termIndex.remove(termIndex.size()-1);
