@@ -1,1 +1,5 @@
-.idea
+*.idea
+*.txt
+*.class
+*.iml
+*.DS_Store
