@@ -89,7 +89,7 @@ public class WebPages {
         int total = 0;
         mergecount =0;
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
-            if (sign = 0){
+            if (sign == 0){
                 if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
                     wholeS.set(total,leftS.get(left));
                     left++;
@@ -113,6 +113,7 @@ public class WebPages {
                  }
                 total++;
                 }
+            }
         }
         ArrayList<Term> finished;
         int last=0;
@@ -135,7 +136,8 @@ public class WebPages {
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
-        termIndex = mergeSort(termIndex,0,termIndex.size(),1)
+        //Use mergesort
+        termIndex = mergeSort(termIndex,0,termIndex.size(),1);
         for (int i = 0; i <= n; i++){
             termIndex.remove(termIndex.size()-1);
         }
