@@ -56,22 +56,22 @@ public class WebPages {
         ArrayList<Term> rightSide = new ArrayList<Term>();
         int mid =0;
 
-        if (sortType =0){
+        if (sortType == 0){
             if (list.size()<=1){
                 return list;
              }
               else {
                 mid = list.size()/2;
                 for (int i =0; i<mid;i++){
-                    leftSide.add(list.get(i).getName());
+                    leftSide.add(list.get(i));
                  }
                 for (int j = mid; j<list.size(); j++){
-                     rightSide.add(list.get(j).getName());
+                     rightSide.add(list.get(j));
                 }
-            mergeSort(leftSide,0,mid,0);
-            mergeSort(rightSide,mid+1,size,0);
+            mergeSort(leftSide,0,mid,sortType);
+            mergeSort(rightSide,mid+1,list.size(),sortType);
 
-            list = merge (leftSide,rightSide,list);
+            list = merge (leftSide,rightSide,list, sortType);
         }
     }
     else{
@@ -81,15 +81,15 @@ public class WebPages {
          else {
             mid = list.size()/2;
             for (int i =0; i<mid;i++){
-                leftSide.add(list.get(i).getTotalFrequency());
+                leftSide.add(list.get(i));
             }
             for (int j = mid; j<list.size(); j++){
-                rightSide.add(list.get(j).getTotalFrequency());
+                rightSide.add(list.get(j));
             }
             mergeSort(leftSide,0,mid,1);
-            mergeSort(rightSide,mid+1,size,1);
+            mergeSort(rightSide,mid+1,list.size(),1);
 
-            list = merge (leftSide,rightSide,list);
+            list = merge (leftSide,rightSide,list, sortType);
         }
     }
         return list;
@@ -100,27 +100,27 @@ public class WebPages {
         int right = 0;
         int total = 0;
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
-            if (sign = 0){
+            if (sign == 0){
                 if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
-                    wholeS.set(total,leftS.get(left));
-                    left++;
-                }
-                 else{
-                wholeS.set(total, rightS.get(right));
-                right++;
-                 }
-                total++;
-                }
-            else {
-                if ((leftS.get(left) <= (rightS.get(right))){
                     wholeS.set(total,leftS.get(left));
                     left++;
                 }
                 else{
                     wholeS.set(total, rightS.get(right));
                     right++;
-                 }
                 }
+                    total++;
+                }
+            else {
+                if ((leftS.get(left).compareToOcc(rightS.get(right)) <= 0)){
+                    wholeS.set(total,leftS.get(left));
+                    left++;
+                }
+                else{
+                    wholeS.set(total, rightS.get(right));
+                    right++;
+                }
+            }
         }
         ArrayList<Term> finished;
         int last=0;
@@ -143,9 +143,8 @@ public class WebPages {
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
-        System.out.println("pruneStopWords not yet implemented");
         //Use mergesort
-        termIndex = mergeSort(termIndex,0,termIndex.size(),1)
+        termIndex = mergeSort(termIndex,0,termIndex.size(),1);
         for (int i = 0; i <= n; i++){
             termIndex.remove(termIndex.size()-1);
         }

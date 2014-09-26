@@ -12,20 +12,23 @@ public class P2 {
         //Scan in files until *EOF* command
         boolean reachedEOF = false;
         for (String command : commands) {
+            System.out.println("Command: " + command);
             if (command.equals("*EOFs*"))
                 reachedEOF = true;
             if (!reachedEOF) {
                 webPage.addPage(command);
                 webPage.printTerms();
+                System.out.println("END\n\n");
             }
             if (reachedEOF) {
                 for (String appearance : webPage.whichPages(command)) {
                     System.out.println(appearance);
                 }
+                System.out.println();
             }
-
-            webPage.pruneStopWords(2);
         }
+
+        webPage.pruneStopWords(1);
     }
 
     public static ArrayList<String> parseInputFile(String filename) {

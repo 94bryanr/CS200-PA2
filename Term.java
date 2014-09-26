@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 //TEst comment
-public class Term {
+public class Term implements Comparable {
     //Word parsed from web page
     private String name;
     //Number of documents the word appears in. NOT a word count
@@ -60,5 +60,30 @@ public class Term {
 
     public ArrayList<Occurrence> getDocsList() {
         return docsList;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        String name1 = this.name;
+        String name2 = ((Term)o).name;
+        if (name1.compareTo(name2) < 0){
+            return -1;
+        }
+        if (name1.compareTo(name2) == 0){
+            return 0;
+        }
+        return 1;
+    }
+
+    public int compareToOcc(Object o) {
+        int total1 = this.getTotalFrequency();
+        int total2 = ((Term)o).getTotalFrequency();
+        if (total1 > total2){
+            return 1;
+        }
+        if (total1 == total2){
+            return 0;
+        }
+        return -1;
     }
 }
