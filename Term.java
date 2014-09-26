@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Term{
+public class Term {
     //Word parsed from web page
     private String name;
     //Number of documents the word appears in. NOT a word count
@@ -10,31 +10,30 @@ public class Term{
     private ArrayList<Occurrence> docsList = new ArrayList<Occurrence>();
 
     //Constructor
-    public Term(String name){
+    public Term(String name) {
         this.name = name;
         docFrequency = 1;
     }
 
     //Increases words document frequency by 1
-    public void incFrequency(String document){
+    public void incFrequency(String document) {
         docFrequency++;
     }
 
     //Updates docsList by one term occurring in *document*
-    public void addNewOccurrence(String document){
+    public void addNewOccurrence(String document) {
         boolean add = false;
-        if(docsList.size() == 0)
+        if (docsList.size() == 0)
             add = true;
-        for (Occurrence occ: docsList){
+        for (Occurrence occ : docsList) {
             add = false;
-            if(occ.getDocName().equals(document)){
+            if (occ.getDocName().equals(document)) {
                 occ.incFrequency();
-            }
-            else{
+            } else {
                 add = true;
             }
         }
-        if(add){
+        if (add) {
             docsList.add(new Occurrence(document));
         }
     }
@@ -50,16 +49,13 @@ public class Term{
     }
 
     //Returns total count of the word in all documents
-    public int getTotalFrequency(){
+    public int getTotalFrequency() {
         int total = 1;
-        for(Occurrence occ: docsList){
+        for (Occurrence occ : docsList) {
             total += occ.getTermFrequency();
         }
         return total;
     }
-
-    NOT A
-    COMMENT
 
     public ArrayList<Occurrence> getDocsList() {
         return docsList;
