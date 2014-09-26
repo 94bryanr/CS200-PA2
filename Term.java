@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-//Test
-
 public class Term{
     //Word parsed from web page
     private String name;
@@ -59,6 +57,9 @@ public class Term{
         }
         return total;
     }
+
+    NOT A
+    COMMENT
 
     public ArrayList<Occurrence> getDocsList() {
         return docsList;
