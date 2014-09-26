@@ -7,7 +7,6 @@ public class Term implements Comparable {
     //Number of documents the word appears in. NOT a word count
     private int docFrequency;
     //Array of occurrences, each contain the number of times the word was in a specified document
-    //TODO: Make this a linked list!
     private LinkedOccurrence docsList = new LinkedOccurrence();
 
     //Constructor
@@ -27,15 +26,15 @@ public class Term implements Comparable {
         if (docsList.getSize() == 0)
             add = true;
         for (Occurrence occ : docsList.toArray()) {
-            add = false;
+            add = true;
             if (occ.getDocName().equals(document)) {
                 occ.incFrequency();
-            } else {
-                add = true;
+                add = false;
             }
         }
         if (add) {
             docsList.insert(document);
+            docFrequency++;
         }
     }
 
@@ -85,5 +84,9 @@ public class Term implements Comparable {
             return 0;
         }
         return -1;
+    }
+
+    public void printList(){
+        docsList.printList();
     }
 }

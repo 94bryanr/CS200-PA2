@@ -28,8 +28,8 @@ public class P2 {
             }
         }
 
-        webPage.pruneStopWords(3);
-        webPage.printTerms();
+        //webPage.pruneStopWords(3);
+        //webPage.printTerms();
     }
 
     public static ArrayList<String> parseInputFile(String filename) {

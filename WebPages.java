@@ -23,22 +23,26 @@ public class WebPages {
 
             else{
                 boolean add = false;
+                boolean cont = true;
                 for(Term term: termIndex){
-                    add = false;
-                    //System.out.println("Checking: " + term.getName() + " against: " + word);
-                    if(word.equals(term.getName())){
-                        term.addNewOccurrence(document);
-                        //System.out.println("Added: " + word +" Occurrence");
-                    }
-                    else{
+                    if(cont) {
                         add = true;
+                        System.out.println("Checking: " + term.getName() + " against: " + word);
+                        if (word.equals(term.getName())) {
+                            term.addNewOccurrence(document);
+                            System.out.println("Added: " + word + " Occurrence");
+                            cont = false;
+                            add = false;
+                        }
                     }
                 }
                 if(add) {
                     termIndex.add(new Term(word));
-                    //System.out.println("Added: " + word);
+                    System.out.println("Added: " + word);
                 }
-                //System.out.println("NEXT ITERATION\n");
+                System.out.println("Current List:");
+                printTerms();
+                System.out.println("NEXT ITERATION\n");
             }
         }
     }
