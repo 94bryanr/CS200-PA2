@@ -61,4 +61,61 @@ public class Term{
     public ArrayList<Occurrence> getDocsList() {
         return docsList;
     }
+    public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
+        ArrayList<String> leftSide = new ArrayList<String>();
+        ArrayList<String> rightSide = new ArrayList<String>();
+        int size = list.size();
+        int mid =0;
+        if (list.size()<=1){
+            return list;
+        }
+        else {
+            mid = list.size()/2;
+            for (int i =0; i<mid;i++){
+                leftSide.add(list.get(i));
+            }
+            for (int j = mid; j<list.size(); j++){
+                rightSide.add(list.get(j));
+            }
+            mergeSort(leftSide,0,mid);
+            mergeSort(rightSide,mid+1,size);
+
+            list = merge (leftSide,rightSide,list);
+        }
+        return list;
+    }
+
+    private ArrayList<String> merge (ArrayList<String> leftS,ArrayList<String> rightS,ArrayList<String> wholeS){
+        int left = 0;
+        int right = 0;
+        int total = 0;
+        while (left <= leftS.size()-1 && right <= rightS.size()-1){
+            if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
+                wholeS.set(total,leftS.get(left));
+                left++;
+            }
+            else{
+                wholeS.set(total, rightS.get(right));
+                right++;
+            }
+            total++;
+        }
+        ArrayList<String> finished;
+        int last=0;
+        if (left>=leftS.size()){
+            finished = rightS;
+            last = right;
+        }
+
+        else{
+            finished = leftS;
+            last = left;
+        }
+        for (int i = last; i<finished.size();i++){
+            wholeS.set(total,finished.get(i));
+            total++;
+        }
+        System.out.println(wholeS);
+        return wholeS;
+    }
 }
