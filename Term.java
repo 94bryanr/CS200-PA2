@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+//Test
+
 public class Term{
     //Word parsed from web page
     private String name;
