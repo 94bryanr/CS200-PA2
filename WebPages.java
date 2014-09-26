@@ -54,8 +54,8 @@ public class WebPages {
        public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
         ArrayList<Term> leftSide = new ArrayList<Term>();
         ArrayList<Term> rightSide = new ArrayList<Term>();
-        int size = list.size();
         int mid =0;
+
         if (sortType =0){
             if (list.size()<=1){
                 return list;
@@ -111,14 +111,14 @@ public class WebPages {
                  }
                 total++;
                 }
-                else {
-                    if ((leftS.get(left) <= (rightS.get(right))){
+            else {
+                if ((leftS.get(left) <= (rightS.get(right))){
                     wholeS.set(total,leftS.get(left));
                     left++;
                 }
-                 else{
-                wholeS.set(total, rightS.get(right));
-                right++;
+                else{
+                    wholeS.set(total, rightS.get(right));
+                    right++;
                  }
                 }
         }
@@ -145,6 +145,11 @@ public class WebPages {
     public void pruneStopWords(int n){
         System.out.println("pruneStopWords not yet implemented");
         //Use mergesort
+        termIndex = mergeSort(termIndex,0,termIndex.size(),1)
+        for (int i = 0; i <= n; i++){
+            termIndex.remove(termIndex.size()-1);
+        }
+        termIndex = mergeSort(termIndex,0,termIndex.size(),0);
         //Sort by term frequency
         //Remove most frequent terms
         //Sort by alphabetic order
