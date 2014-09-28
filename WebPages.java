@@ -18,8 +18,9 @@ public class WebPages {
         //For each word in our parsed array...
         for(String word: pageParser.getParsedArray()){
 
-            if (termIndex.size() == 0)
-                termIndex.add(new Term(word));
+            if (termIndex.size() == 0) {
+                addNewTerm(word, document);
+            }
 
             else{
                 boolean add = false;
@@ -37,7 +38,7 @@ public class WebPages {
                     }
                 }
                 if(add) {
-                    termIndex.add(new Term(word));
+                    addNewTerm(word, document);
                     System.out.println("Added: " + word);
                 }
                 System.out.println("Current List:");
@@ -45,6 +46,12 @@ public class WebPages {
                 System.out.println("NEXT ITERATION\n");
             }
         }
+    }
+
+    private void addNewTerm(String name, String document){
+        Term newTerm = new Term(name);
+        newTerm.addNewOccurrence(document);
+        termIndex.add(newTerm);
     }
 
     //Iterates through the array of termIndex and prints each word
@@ -56,7 +63,6 @@ public class WebPages {
     }
 
     public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
-
         ArrayList<Term> leftSide = new ArrayList<Term>();
         ArrayList<Term> rightSide = new ArrayList<Term>();
         int mid =0;

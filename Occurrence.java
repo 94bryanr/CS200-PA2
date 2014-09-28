@@ -9,7 +9,7 @@ public class Occurrence {
     //Constructor
     public Occurrence(String name){
         this.docName = name;
-        this.termFrequency = 1;
+        this.termFrequency = 0;
     }
 
     //Increase word frequency by 1

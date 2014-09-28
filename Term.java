@@ -12,7 +12,7 @@ public class Term implements Comparable {
     //Constructor
     public Term(String name) {
         this.name = name;
-        docFrequency = 1;
+        docFrequency = 0;
     }
 
     //Increases words document frequency by 1
