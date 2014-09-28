@@ -22,11 +22,10 @@ public class Term implements Comparable {
 
     //Updates docsList by one term occurring in *document*
     public void addNewOccurrence(String document) {
-        boolean add = false;
-        if (docsList.getSize() == 0)
-            add = true;
+        boolean add = true;
         for (Occurrence occ : docsList.toArray()) {
-            add = true;
+            System.out.printf("Checking occ repeat for %s between %s and %s%n",
+                    name, occ.getDocName(), document);
             if (occ.getDocName().equals(document)) {
                 occ.incFrequency();
                 add = false;
@@ -35,6 +34,7 @@ public class Term implements Comparable {
         if (add) {
             docsList.insert(document);
             docFrequency++;
+            System.out.printf("Increased: %s docFrequency%n", name);
         }
     }
 

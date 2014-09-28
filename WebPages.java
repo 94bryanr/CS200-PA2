@@ -50,8 +50,8 @@ public class WebPages {
     //Iterates through the array of termIndex and prints each word
     public void printTerms(){
         for(Term word: termIndex){
-            System.out.println(word.getName() + " " + word.getDocFrequency() + " " +
-            word.getTotalFrequency());
+            System.out.printf("%-13s Document Frequency: %2s   Total Frequency: %2s%n",
+                    word.getName(), word.getDocFrequency(), word.getTotalFrequency());
         }
     }
 

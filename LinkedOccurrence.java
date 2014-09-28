@@ -35,6 +35,7 @@ public class LinkedOccurrence {
     }
 
     public ArrayList<Occurrence> toArray(){
+        System.out.println("Getting occurrence linked list.");
         ArrayList<Occurrence> array = new ArrayList<Occurrence>();
         Occurrence temp = head;
         while(head != null){
