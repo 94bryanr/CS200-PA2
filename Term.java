@@ -50,7 +50,7 @@ public class Term implements Comparable {
 
     //Returns total count of the word in all documents
     public int getTotalFrequency() {
-        int total = 1;
+        int total = 0;
         for (Occurrence occ : docsList.toArray()) {
             total += occ.getTermFrequency();
         }
@@ -88,5 +88,9 @@ public class Term implements Comparable {
 
     public void printList(){
         docsList.printList();
+    }
+
+    public String getStringList(){
+        return docsList.toString().trim();
     }
 }

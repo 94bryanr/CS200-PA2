@@ -12,8 +12,6 @@ public class LinkedOccurrence {
         Occurrence newOcc = new Occurrence(name);
         newOcc.next = head;
         head = newOcc;
-        System.out.println("Adding occurrence to linked list.");
-        printList();
     }
 
     public void printList(){
@@ -45,5 +43,16 @@ public class LinkedOccurrence {
         }
         head = temp;
         return array;
+    }
+
+    public String toString(){
+        String arrayString = "";
+        Occurrence temp = head;
+        while(head != null){
+            arrayString = head.getDocName() + " " + head.getTermFrequency() + "; " + arrayString;
+            head = head.next;
+        }
+        head = temp;
+        return arrayString;
     }
 }

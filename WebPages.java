@@ -28,7 +28,7 @@ public class WebPages {
                 for(Term term: termIndex){
                     if(cont) {
                         add = true;
-                        System.out.println("Checking: " + term.getName() + " against: " + word);
+                        System.out.printf("%s %-12s %s %s%n", "Checking:", term.getName(), "Against:", word);
                         if (word.equals(term.getName())) {
                             term.addNewOccurrence(document);
                             System.out.println("Added: " + word + " Occurrence");
@@ -41,7 +41,8 @@ public class WebPages {
                     addNewTerm(word, document);
                     System.out.println("Added: " + word);
                 }
-                System.out.println("Current List:");
+                System.out.printf("%-15s %-20s %-20s %s %n",
+                        "Current List:", "Document Frequency", "Total Frequency", "Occurrences");
                 printTerms();
                 System.out.println("NEXT ITERATION\n");
             }
@@ -57,8 +58,8 @@ public class WebPages {
     //Iterates through the array of termIndex and prints each word
     public void printTerms(){
         for(Term word: termIndex){
-            System.out.printf("%-13s Document Frequency: %2s   Total Frequency: %2s%n",
-                    word.getName(), word.getDocFrequency(), word.getTotalFrequency());
+            System.out.printf("%-15s %-20s %-20s %s%n",
+                    word.getName(), word.getDocFrequency(), word.getTotalFrequency(), word.getStringList());
         }
     }
 

@@ -12,15 +12,20 @@ public class P2 {
         //Scan in files until *EOF* command
         boolean reachedEOF = false;
         for (String command : commands) {
-            System.out.println("Command: " + command);
-            if (command.equals("*EOFs*"))
+            if (command.equals("*EOFs*")) {
+                System.out.println("Command: " + command);
                 reachedEOF = true;
+                System.out.println();
+                continue;
+            }
             if (!reachedEOF) {
+                System.out.println("Command: " + command);
                 webPage.addPage(command);
                 webPage.printTerms();
                 System.out.println("END\n\n");
             }
             if (reachedEOF) {
+                System.out.println("Command: " + command);
                 for (String appearance : webPage.whichPages(command)) {
                     System.out.println(appearance);
                 }
