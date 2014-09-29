@@ -19,6 +19,9 @@ public class P2 {
                     System.out.println("Command: " + command);
                     System.out.println();
                 }
+                if(DEBUG == 0){
+                    webPage.printTerms();
+                }
                 reachedEOF = true;
                 continue;
             }
@@ -38,6 +41,22 @@ public class P2 {
                     }
                     System.out.println();
                 }
+
+                if(DEBUG == 0){
+                    String whichPagesString = command;
+                    String appearancesString = "";
+                    boolean found = false;
+                    for (String appearance : webPage.whichPages(command)) {
+                        found = true;
+                        appearancesString = appearance + " "  + appearancesString;
+                    }
+                    if(!found){
+                        System.out.println(whichPagesString + " not found");
+                    }
+                    if(found){
+                        System.out.println(command + " found in: " + appearancesString);
+                    }
+                }
             }
         }
 
@@ -45,11 +64,8 @@ public class P2 {
             System.out.println("--FINAL LIST--");
             webPage.printTerms();
             System.out.println("Length: " + webPage.getLength());
-        }
-        int n = 3;
-        webPage.pruneStopWords(n);
-
-        if(DEBUG >= 1) {
+            int n = 3;
+            webPage.pruneStopWords(n);
             System.out.println();
             System.out.println("List after pruning " + n + " stop words");
             webPage.printTerms();
