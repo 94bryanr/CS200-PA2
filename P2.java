@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class P2 {
-    public static final int DEBUG = 0;
+    public static final int DEBUG = 1;
 
     public static void main(String[] args) {
         //Object to hold word information for given web pages.
@@ -45,13 +45,17 @@ public class P2 {
             System.out.println("--FINAL LIST--");
             webPage.printTerms();
             System.out.println("Length: " + webPage.getLength());
+
         }
+        System.out.println("Copies: " + webPage.getLength());
         int n = 3;
         webPage.pruneStopWords(n);
+        System.out.println("Copies: " + webPage.getLength());
 
         if(DEBUG >= 1) {
             System.out.println();
             System.out.println("List after pruning " + n + " stop words");
+            //System.out.println("Copies: " + webPage.getLength());
             webPage.printTerms();
             System.out.println("Length: " + webPage.getLength());
         }
