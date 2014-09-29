@@ -154,6 +154,7 @@ public class WebPages {
 
     //Prints which pages *word* exist on
     public String[] whichPages(String word) {
+        word = word.toLowerCase();
         ArrayList<String> pages = new ArrayList<String>();
         for(Term term: termIndex){
             if (term.getName().equals(word)){

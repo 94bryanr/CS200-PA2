@@ -19,13 +19,13 @@ public class P2 {
                 continue;
             }
             if (!reachedEOF) {
-                System.out.println("Command: " + command);
+                System.out.printf("%-8s %-15s %s%n", "Command:", command, "ADDING FILE");
                 webPage.addPage(command);
                 webPage.printTerms();
                 System.out.println("END\n\n");
             }
             if (reachedEOF) {
-                System.out.println("Command: " + command);
+                System.out.printf("%-8s %-10s %s%n", "Command:", command, "CHECKING PAGES");
                 for (String appearance : webPage.whichPages(command)) {
                     System.out.println(appearance);
                 }
@@ -33,8 +33,13 @@ public class P2 {
             }
         }
 
-        //webPage.pruneStopWords(3);
-        //webPage.printTerms();
+        System.out.println("--FINAL LIST--");
+        webPage.printTerms();
+        int n = 3;
+        webPage.pruneStopWords(n);
+        System.out.println();
+        System.out.println("List after pruning " + n + " stop words");
+        webPage.printTerms();
     }
 
     public static ArrayList<String> parseInputFile(String filename) {
