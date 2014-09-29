@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class P2 {
+    public static final int DEBUG = 0;
+
     public static void main(String[] args) {
         //Object to hold word information for given web pages.
         WebPages webPage = new WebPages();
@@ -13,33 +15,46 @@ public class P2 {
         boolean reachedEOF = false;
         for (String command : commands) {
             if (command.equals("*EOFs*")) {
-                System.out.println("Command: " + command);
+                if(DEBUG >= 1) {
+                    System.out.println("Command: " + command);
+                    System.out.println();
+                }
                 reachedEOF = true;
-                System.out.println();
                 continue;
             }
             if (!reachedEOF) {
-                System.out.printf("%-8s %-15s %s%n", "Command:", command, "ADDING FILE");
                 webPage.addPage(command);
-                webPage.printTerms();
-                System.out.println("END\n\n");
+                if(DEBUG >= 1) {
+                    System.out.printf("%-8s %-15s %s%n", "Command:", command, "ADDING FILE");
+                    webPage.printTerms();
+                    System.out.println("END\n\n");
+                }
             }
             if (reachedEOF) {
-                System.out.printf("%-8s %-10s %s%n", "Command:", command, "CHECKING PAGES");
-                for (String appearance : webPage.whichPages(command)) {
-                    System.out.println(appearance);
+                if(DEBUG >= 1) {
+                    System.out.printf("%-8s %-10s %s%n", "Command:", command, "CHECKING PAGES");
+                    for (String appearance : webPage.whichPages(command)) {
+                        System.out.println(appearance);
+                    }
+                    System.out.println();
                 }
-                System.out.println();
             }
         }
 
-        System.out.println("--FINAL LIST--");
-        webPage.printTerms();
+        if(DEBUG >= 1) {
+            System.out.println("--FINAL LIST--");
+            webPage.printTerms();
+            System.out.println("Length: " + webPage.getLength());
+        }
         int n = 3;
         webPage.pruneStopWords(n);
-        System.out.println();
-        System.out.println("List after pruning " + n + " stop words");
-        webPage.printTerms();
+
+        if(DEBUG >= 1) {
+            System.out.println();
+            System.out.println("List after pruning " + n + " stop words");
+            webPage.printTerms();
+            System.out.println("Length: " + webPage.getLength());
+        }
     }
 
     public static ArrayList<String> parseInputFile(String filename) {
@@ -55,5 +70,9 @@ public class P2 {
             e.printStackTrace();
         }
         return commands;
+    }
+
+    public static int getDebugState(){
+        return DEBUG;
     }
 }

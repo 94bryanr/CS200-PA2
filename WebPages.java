@@ -28,10 +28,12 @@ public class WebPages {
                 for(Term term: termIndex){
                     if(cont) {
                         add = true;
-                        System.out.printf("%s %-12s %s %s%n", "Checking:", term.getName(), "Against:", word);
+                        if(P2.getDebugState() >= 1)
+                            System.out.printf("%s %-12s %s %s%n", "Checking:", term.getName(), "Against:", word);
                         if (word.equals(term.getName())) {
                             term.addNewOccurrence(document);
-                            System.out.println("Added: " + word + " Occurrence");
+                            if(P2.getDebugState() >= 1)
+                                System.out.println("Added: " + word + " Occurrence");
                             cont = false;
                             add = false;
                         }
@@ -39,12 +41,15 @@ public class WebPages {
                 }
                 if(add) {
                     addNewTerm(word, document);
-                    System.out.println("Added: " + word);
+                    if(P2.getDebugState() >= 1)
+                        System.out.println("Added: " + word);
                 }
-                System.out.printf("%-15s %-20s %-20s %s %n",
-                        "Current List:", "Document Frequency", "Total Frequency", "Occurrences");
-                printTerms();
-                System.out.println("NEXT ITERATION\n");
+                if(P2.getDebugState() >= 1) {
+                    System.out.printf("%-15s %-20s %-20s %s %n",
+                            "Current List:", "Document Frequency", "Total Frequency", "Occurrences");
+                    printTerms();
+                    System.out.println("NEXT ITERATION\n");
+                }
             }
         }
     }
@@ -146,7 +151,7 @@ public class WebPages {
     public void pruneStopWords(int n){
         //Use merge sort
         termIndex = mergeSort(termIndex,0,termIndex.size(),1);
-        for (int i = 0; i <= n; i++){
+        for (int i = 0; i < n; i++){
             termIndex.remove(termIndex.size()-1);
         }
         termIndex = mergeSort(termIndex,0,termIndex.size(),0);
@@ -164,5 +169,9 @@ public class WebPages {
             }
         }
         return pages.toArray(new String[pages.size()]);
+    }
+
+    public int getLength(){
+        return termIndex.size();
     }
 }
