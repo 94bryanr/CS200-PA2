@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
     private ArrayList<Term> termIndex;
+    public int savedMergeCount;
+
 
     //Constructor
     public WebPages(){
@@ -71,10 +73,18 @@ public class WebPages {
 
         if(P2.getDebugState() == 0) {
             for (Term word : termIndex) {
-                System.out.println("WORDS");
+                //System.out.println("WORDS");
                 System.out.println(word.getName());
             }
+
         }
+    }
+    public int getTotalWords(){
+            int count=0;
+            for (Term word : termIndex){
+                count += word.getTotalFrequency();
+            }
+            return count;
     }
 
     public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
@@ -107,11 +117,19 @@ public class WebPages {
         return list;
     }
 
+    private int setMergeCount(int i){
+        return savedMergeCount = i;
+    }
+    public int getMergeCount(){
+        return savedMergeCount;
+    }
+
     private ArrayList<Term> merge (ArrayList<Term> leftS,ArrayList<Term> rightS,ArrayList<Term> wholeS, int sign){
         int left = 0;
         int right = 0;
         int total = 0;
-        int mergecount =0;
+        int mergecount = 0;
+        System.out.println("Current mergecount: " + mergecount);
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
             if (sign == 0){
                 if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
@@ -152,18 +170,21 @@ public class WebPages {
             wholeS.set(total,finished.get(i));
             total++;
         }
-        //System.out.println("number of times:" + mergecount);
+        setMergeCount(mergecount);
+        System.out.println("Current mergecount: " + mergecount);
         return wholeS;
     }
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
         //Use merge sort
+        // get total number of words
         termIndex = mergeSort(termIndex,0,termIndex.size(),1);
         for (int i = 0; i < n; i++){
             termIndex.remove(termIndex.size()-1);
         }
         termIndex = mergeSort(termIndex,0,termIndex.size(),0);
+        // print old total and new total words
     }
 
     //Prints which pages *word* exist on

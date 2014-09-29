@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class P2 {
-    public static final int DEBUG = 1;
+    public static final int DEBUG = 0;
 
     public static void main(String[] args) {
         //Object to hold word information for given web pages.
@@ -21,6 +21,7 @@ public class P2 {
                 }
                 if(DEBUG == 0){
                     webPage.printTerms();
+                    System.out.println("Copies: " + webPage.getMergeCount());
                 }
                 reachedEOF = true;
                 continue;
@@ -59,7 +60,6 @@ public class P2 {
                 }
             }
         }
-
         if(DEBUG >= 1) {
             System.out.println("--FINAL LIST--");
             webPage.printTerms();
