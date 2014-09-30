@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
     private ArrayList<Term> termIndex;
-    public int savedMergeCount;
+    public int savedMergeCount =1;
 
 
     //Constructor
@@ -72,13 +72,15 @@ public class WebPages {
         }
 
         if(P2.getDebugState() == 0) {
+            System.out.println("WORDS");
             for (Term word : termIndex) {
-                //System.out.println("WORDS");
                 System.out.println(word.getName());
             }
+            System.out.println();
 
         }
     }
+
     public int getTotalWords(){
             int count=0;
             for (Term word : termIndex){
@@ -87,10 +89,19 @@ public class WebPages {
             return count;
     }
 
+    private void incMergeCount(int i){
+        savedMergeCount += i;
+    }
+    public int getMergeCount(){
+        int temp = savedMergeCount;
+        savedMergeCount = 0;
+        return temp;
+    }
+
     public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
         ArrayList<Term> leftSide = new ArrayList<Term>();
         ArrayList<Term> rightSide = new ArrayList<Term>();
-        int mid =0;
+        int mid = 0;
         if (list.size()<=1){
             return list;
         }
@@ -111,17 +122,11 @@ public class WebPages {
                 mergeSort(leftSide,0,mid,1);
                 mergeSort(rightSide,mid+1,list.size(),1);
                 list = merge (leftSide,rightSide,list, 1);
+                savedMergeCount =0;
                 }
 
     }
         return list;
-    }
-
-    private int setMergeCount(int i){
-        return savedMergeCount = i;
-    }
-    public int getMergeCount(){
-        return savedMergeCount;
     }
 
     private ArrayList<Term> merge (ArrayList<Term> leftS,ArrayList<Term> rightS,ArrayList<Term> wholeS, int sign){
@@ -129,13 +134,13 @@ public class WebPages {
         int right = 0;
         int total = 0;
         int mergecount = 0;
-        System.out.println("Current mergecount: " + mergecount);
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
             if (sign == 0){
                 if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
                     wholeS.set(total,leftS.get(left));
                     left++;
                     mergecount++;
+                    savedMergeCount++;
                 }
                 else{
                     wholeS.set(total, rightS.get(right));
@@ -170,8 +175,6 @@ public class WebPages {
             wholeS.set(total,finished.get(i));
             total++;
         }
-        setMergeCount(mergecount);
-        System.out.println("Current mergecount: " + mergecount);
         return wholeS;
     }
 
@@ -199,6 +202,10 @@ public class WebPages {
             }
         }
         return pages.toArray(new String[pages.size()]);
+    }
+
+    public ArrayList<Term> getTermIndex() {
+        return termIndex;
     }
 
     public int getLength(){
