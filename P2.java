@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class P2 {
-    public static final int DEBUG = 1;
+    public static final int DEBUG = 0;
 
     public static void main(String[] args) {
         //Object to hold word information for given web pages.
