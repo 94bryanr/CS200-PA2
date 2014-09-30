@@ -77,22 +77,6 @@ public class Term implements Comparable {
         return 1;
     }
 
-    public int compareToOcc(Object o) {
-        int total1 = this.getTotalFrequency();
-        int total2 = ((Term)o).getTotalFrequency();
-        if (total1 > total2){
-            return 1;
-        }
-        if (total1 == total2){
-            return 0;
-        }
-        return -1;
-    }
-
-    public void printList(){
-        docsList.printList();
-    }
-
     public String getStringList(){
         return docsList.toString().trim();
     }

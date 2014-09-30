@@ -13,7 +13,12 @@ public class P2 {
         ArrayList<String> commands = parseInputFile(args[0]);
         //Scan in files until *EOF* command
         boolean reachedEOF = false;
+        boolean pruneStopWords = false;
         for (String command : commands) {
+            if(pruneStopWords){
+                webPage.pruneStopWords(Integer.parseInt(command));
+                pruneStopWords = false;
+            }
             if (command.equals("*EOFs*")) {
                 if(DEBUG >= 1) {
                     System.out.println("Command: " + command);
@@ -21,10 +26,9 @@ public class P2 {
                 }
                 if(DEBUG == 0){
                     webPage.printTerms();
-                    webPage.mergeSort(webPage.getTermIndex(),0,webPage.getTermIndex().size(), 0);
-                    System.out.println("Copies: " + webPage.getMergeCount());
                 }
                 reachedEOF = true;
+                pruneStopWords = true;
                 continue;
             }
             if (!reachedEOF) {
@@ -50,7 +54,7 @@ public class P2 {
                     boolean found = false;
                     for (String appearance : webPage.whichPages(command)) {
                         found = true;
-                        appearancesString = appearance + " "  + appearancesString;
+                        appearancesString = appearance + " " + appearancesString;
                     }
                     if(!found){
                         System.out.println(whichPagesString + " not found");
@@ -77,8 +81,6 @@ public class P2 {
 
         //FOR TESTING
         if(DEBUG == 0){
-            webPage.pruneStopWords(0);
-            System.out.println("Copies: " + webPage.getMergeCount());
             webPage.printTerms();
         }
 

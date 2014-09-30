@@ -1,10 +1,13 @@
 import java.util.ArrayList;
+//Credit to Janet J. Prichard and Frank M. Carrano
+//As the original authors of the code
+//Seen in Java: Walls and Mirrors, Third Edition
+//Slight modifications have been made
 
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
     private ArrayList<Term> termIndex;
-    public int savedMergeCount =1;
-
+    private MergeSort ms;
 
     //Constructor
     public WebPages(){
@@ -81,113 +84,18 @@ public class WebPages {
         }
     }
 
-    public int getTotalWords(){
-            int count=0;
-            for (Term word : termIndex){
-                count += word.getTotalFrequency();
-            }
-            return count;
-    }
-
-    private void incMergeCount(int i){
-        savedMergeCount += i;
-    }
-    public int getMergeCount(){
-        int temp = savedMergeCount;
-        savedMergeCount = 0;
-        return temp;
-    }
-
-    public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
-        ArrayList<Term> leftSide = new ArrayList<Term>();
-        ArrayList<Term> rightSide = new ArrayList<Term>();
-        int mid = 0;
-        if (list.size()<=1){
-            return list;
-        }
-        else {
-           mid = list.size()/2;
-           for (int i =0; i<mid;i++){
-                leftSide.add(list.get(i));
-            }
-           for (int j = mid; j<list.size(); j++){
-                rightSide.add(list.get(j));
-           }
-           if (sortType == 0){
-                mergeSort(leftSide,0,mid,0);
-                mergeSort(rightSide,mid+1,list.size(),0);
-                list = merge (leftSide,rightSide,list, 0);
-           }
-           else{
-                mergeSort(leftSide,0,mid,1);
-                mergeSort(rightSide,mid+1,list.size(),1);
-                list = merge (leftSide,rightSide,list, 1);
-                savedMergeCount =0;
-                }
-
-    }
-        return list;
-    }
-
-    private ArrayList<Term> merge (ArrayList<Term> leftS,ArrayList<Term> rightS,ArrayList<Term> wholeS, int sign){
-        int left = 0;
-        int right = 0;
-        int total = 0;
-        int mergecount = 0;
-        while (left <= leftS.size()-1 && right <= rightS.size()-1){
-            if (sign == 0){
-                if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
-                    wholeS.set(total,leftS.get(left));
-                    left++;
-                    mergecount++;
-                    savedMergeCount++;
-                }
-                else{
-                    wholeS.set(total, rightS.get(right));
-                    right++;
-                }
-                total++;
-                }
-            else {
-                if (leftS.get(left).getTotalFrequency() <= rightS.get(right).getTotalFrequency()){
-                    wholeS.set(total,leftS.get(left));
-                    left++;
-                    mergecount++;
-                    }
-                else{
-                    wholeS.set(total, rightS.get(right));
-                    right++;
-                 }
-                total++;
-                }
-            }
-        ArrayList<Term> finished;
-        int last= 0;
-        if(left >= leftS.size()){
-            finished = rightS;
-            last = right;
-        }
-        else{
-            finished = leftS;
-            last = left;
-        }
-        for (int i = last; i<finished.size();i++){
-            wholeS.set(total,finished.get(i));
-            total++;
-        }
-        return wholeS;
-    }
-
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
-        //Use merge sort
-        // get total number of words
-        termIndex = mergeSort(termIndex,0,termIndex.size(),1);
+        ms.mergesort(getTermIndexArray()); // sort by total frequency
+        System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
+        //removes most frequent words
         for (int i = 0; i < n; i++){
             termIndex.remove(termIndex.size()-1);
         }
-        termIndex = mergeSort(termIndex,0,termIndex.size(),0);
-        // print old total and new total words
+        ms.mergesort(getTermIndexArray()); // sort alphabetically
+        System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
+
+        System.out.println();
     }
 
     //Prints which pages *word* exist on
@@ -204,11 +112,13 @@ public class WebPages {
         return pages.toArray(new String[pages.size()]);
     }
 
-    public ArrayList<Term> getTermIndex() {
-        return termIndex;
-    }
-
     public int getLength(){
         return termIndex.size();
+    }
+
+    public Term[] getTermIndexArray(){
+        Term[] words = new Term[0];
+        words = termIndex.toArray(words);
+        return words;
     }
 }
