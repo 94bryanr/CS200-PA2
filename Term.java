@@ -71,17 +71,35 @@ public class Term implements Comparable {
         if(compareType == 0) {
             String name1 = this.name;
             String name2 = ((Term) o).name;
-            return name1.compareTo(name2);
+            int size = name1.length();
+            if (name1.length() > name2.length())
+                size = name2.length();
+            for (int i =0; i<size; i++){
+                char word1 = name1.charAt(i);
+                char word2 = name2.charAt(i);
+
+                if (word1 < word2){
+                    return -1;
+                }
+                if (word1>word2){
+                    return 1;
+                }
+            }
+            if (name1.length() < name2.length())
+                return -1;
+            else
+            return 1;
+
+
         }
         if(compareType == 1){
             Integer count1 = this.getTotalFrequency();
             Integer count2 = ((Term) o).getTotalFrequency();
             return count1.compareTo(count2);
         }
-        System.out.println("ERROR: NO SORTING DEFINED");
+        //System.out.println("ERROR: NO SORTING DEFINED");
         return 0;
     }
-
     public String getStringList(){
         return docsList.toString().trim();
     }
