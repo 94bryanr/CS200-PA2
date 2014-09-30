@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
     private ArrayList<Term> termIndex;
+    public int savedMergeCount =1;
+
 
     //Constructor
     public WebPages(){
@@ -70,17 +72,36 @@ public class WebPages {
         }
 
         if(P2.getDebugState() == 0) {
+            System.out.println("WORDS");
             for (Term word : termIndex) {
-                System.out.println("WORDS");
                 System.out.println(word.getName());
             }
+            System.out.println();
+
         }
+    }
+
+    public int getTotalWords(){
+            int count=0;
+            for (Term word : termIndex){
+                count += word.getTotalFrequency();
+            }
+            return count;
+    }
+
+    private void incMergeCount(int i){
+        savedMergeCount += i;
+    }
+    public int getMergeCount(){
+        int temp = savedMergeCount;
+        savedMergeCount = 0;
+        return temp;
     }
 
     public ArrayList<Term> mergeSort (ArrayList<Term> list, int first, int last, int sortType){
         ArrayList<Term> leftSide = new ArrayList<Term>();
         ArrayList<Term> rightSide = new ArrayList<Term>();
-        int mid =0;
+        int mid = 0;
         if (list.size()<=1){
             return list;
         }
@@ -101,6 +122,7 @@ public class WebPages {
                 mergeSort(leftSide,0,mid,1);
                 mergeSort(rightSide,mid+1,list.size(),1);
                 list = merge (leftSide,rightSide,list, 1);
+                savedMergeCount =0;
                 }
 
     }
@@ -111,13 +133,14 @@ public class WebPages {
         int left = 0;
         int right = 0;
         int total = 0;
-        int mergecount =0;
+        int mergecount = 0;
         while (left <= leftS.size()-1 && right <= rightS.size()-1){
             if (sign == 0){
                 if ((leftS.get(left).compareTo(rightS.get(right)) <= 0)){
                     wholeS.set(total,leftS.get(left));
                     left++;
                     mergecount++;
+                    savedMergeCount++;
                 }
                 else{
                     wholeS.set(total, rightS.get(right));
@@ -152,18 +175,19 @@ public class WebPages {
             wholeS.set(total,finished.get(i));
             total++;
         }
-        //System.out.println("number of times:" + mergecount);
         return wholeS;
     }
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
         //Use merge sort
+        // get total number of words
         termIndex = mergeSort(termIndex,0,termIndex.size(),1);
         for (int i = 0; i < n; i++){
             termIndex.remove(termIndex.size()-1);
         }
         termIndex = mergeSort(termIndex,0,termIndex.size(),0);
+        // print old total and new total words
     }
 
     //Prints which pages *word* exist on
@@ -178,6 +202,10 @@ public class WebPages {
             }
         }
         return pages.toArray(new String[pages.size()]);
+    }
+
+    public ArrayList<Term> getTermIndex() {
+        return termIndex;
     }
 
     public int getLength(){

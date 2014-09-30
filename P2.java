@@ -21,6 +21,8 @@ public class P2 {
                 }
                 if(DEBUG == 0){
                     webPage.printTerms();
+                    webPage.mergeSort(webPage.getTermIndex(),0,webPage.getTermIndex().size(), 0);
+                    System.out.println("Copies: " + webPage.getMergeCount());
                 }
                 reachedEOF = true;
                 continue;
@@ -60,6 +62,7 @@ public class P2 {
             }
         }
 
+        //FOR TESTING
         if(DEBUG >= 1) {
             System.out.println("--FINAL LIST--");
             webPage.printTerms();
@@ -71,6 +74,14 @@ public class P2 {
             webPage.printTerms();
             System.out.println("Length: " + webPage.getLength());
         }
+
+        //FOR TESTING
+        if(DEBUG == 0){
+            webPage.pruneStopWords(0);
+            System.out.println("Copies: " + webPage.getMergeCount());
+            webPage.printTerms();
+        }
+
     }
 
     public static ArrayList<String> parseInputFile(String filename) {
