@@ -29,12 +29,8 @@ public class WebPages {
                 for(Term term: termIndex){
                     if(cont) {
                         add = true;
-                        if(P2.getDebugState() >= 1)
-                            System.out.printf("%s %-12s %s %s%n", "Checking:", term.getName(), "Against:", word);
                         if (word.equals(term.getName())) {
                             term.addNewOccurrence(document);
-                            if(P2.getDebugState() >= 1)
-                                System.out.println("Added: " + word + " Occurrence");
                             cont = false;
                             add = false;
                         }
@@ -42,17 +38,12 @@ public class WebPages {
                 }
                 if(add) {
                     addNewTerm(word, document);
-                    if(P2.getDebugState() >= 1)
-                        System.out.println("Added: " + word);
-                }
-                if(P2.getDebugState() >= 1) {
-                    System.out.printf("%-15s %-20s %-20s %s %n",
-                            "Current List:", "Document Frequency", "Total Frequency", "Occurrences");
-                    printTerms();
-                    System.out.println("NEXT ITERATION\n");
                 }
             }
         }
+
+        //To sort after adding all pages
+        ms.mergesort(termIndex);
     }
 
     private void addNewTerm(String name, String document){
@@ -63,25 +54,16 @@ public class WebPages {
 
     //Iterates through the array of termIndex and prints each word
     public void printTerms(){
-        if(P2.getDebugState() >= 1) {
-            for (Term word : termIndex) {
-                System.out.printf("%-15s %-20s %-20s %s%n",
-                        word.getName(), word.getDocFrequency(), word.getTotalFrequency(), word.getStringList());
-            }
-        }
-
-        if(P2.getDebugState() == 0) {
-            System.out.println("WORDS");
+        System.out.println("WORDS");
             for (Term word : termIndex) {
                 System.out.println(word.getName());
-            }
-            System.out.println();
-
         }
     }
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
+        System.out.println();
+        ms.getCounter(); //Sets counter to 0
         Term.compareType = 1; //Sets to compare terms by frequency
         ms.mergesort(termIndex); // sort by total frequency
         System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
@@ -93,6 +75,8 @@ public class WebPages {
         ms.mergesort(termIndex); // sort alphabetically
         System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
 
+        System.out.println();
+        printTerms();
         System.out.println();
     }
 

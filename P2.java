@@ -18,70 +18,33 @@ public class P2 {
             if(pruneStopWords){
                 webPage.pruneStopWords(Integer.parseInt(command));
                 pruneStopWords = false;
+                continue;
             }
             if (command.equals("*EOFs*")) {
-                if(DEBUG >= 1) {
-                    System.out.println("Command: " + command);
-                    System.out.println();
-                }
-                if(DEBUG == 0){
-                    webPage.printTerms();
-                }
+                webPage.printTerms();
                 reachedEOF = true;
                 pruneStopWords = true;
                 continue;
             }
             if (!reachedEOF) {
                 webPage.addPage(command);
-                if(DEBUG >= 1) {
-                    System.out.printf("%-8s %-15s %s%n", "Command:", command, "ADDING FILE");
-                    webPage.printTerms();
-                    System.out.println("END\n\n");
-                }
             }
             if (reachedEOF) {
-                if(DEBUG >= 1) {
-                    System.out.printf("%-8s %-10s %s%n", "Command:", command, "CHECKING PAGES");
-                    for (String appearance : webPage.whichPages(command)) {
-                        System.out.println(appearance);
-                    }
-                    System.out.println();
-                }
-
-                if(DEBUG == 0){
                     String whichPagesString = command;
                     String appearancesString = "";
                     boolean found = false;
                     for (String appearance : webPage.whichPages(command)) {
                         found = true;
-                        appearancesString = appearance + " " + appearancesString;
+                        appearancesString = appearance + ", " + appearancesString;
                     }
                     if(!found){
                         System.out.println(whichPagesString + " not found");
                     }
                     if(found){
+                        appearancesString = appearancesString.substring(0, appearancesString.length()-2);
                         System.out.println(command + " found in: " + appearancesString);
                     }
-                }
             }
-        }
-
-        //FOR TESTING
-        if(DEBUG >= 1) {
-            System.out.println("--FINAL LIST--");
-            webPage.printTerms();
-            System.out.println("Length: " + webPage.getLength());
-            int n = 3;
-            webPage.pruneStopWords(n);
-            System.out.println();
-            System.out.println("List after pruning " + n + " stop words");
-            webPage.printTerms();
-            System.out.println("Length: " + webPage.getLength());
-        }
-
-        //FOR TESTING
-        if(DEBUG == 0){
-            webPage.printTerms();
         }
     }
 

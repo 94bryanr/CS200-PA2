@@ -74,10 +74,11 @@ public class Term implements Comparable {
             return name1.compareTo(name2);
         }
         if(compareType == 1){
-            Integer count1 = this.docFrequency;
-            Integer count2 = ((Term) o).docFrequency;
+            Integer count1 = this.getTotalFrequency();
+            Integer count2 = ((Term) o).getTotalFrequency();
             return count1.compareTo(count2);
         }
+        System.out.println("ERROR: NO SORTING DEFINED");
         return 0;
     }
 
