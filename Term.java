@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 //TEst comment
 public class Term implements Comparable {
+    //Set 0 to compare alphabetically, set 1 to compare by index
+    public static int compareType = 0;
     //Word parsed from web page
     private String name;
     //Number of documents the word appears in. NOT a word count
@@ -66,15 +68,17 @@ public class Term implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        String name1 = this.name;
-        String name2 = ((Term)o).name;
-        if (name1.compareTo(name2) < 0){
-            return -1;
+        if(compareType == 0) {
+            String name1 = this.name;
+            String name2 = ((Term) o).name;
+            return name1.compareTo(name2);
         }
-        if (name1.compareTo(name2) == 0){
-            return 0;
+        if(compareType == 1){
+            Integer count1 = this.docFrequency;
+            Integer count2 = ((Term) o).docFrequency;
+            return count1.compareTo(count2);
         }
-        return 1;
+        return 0;
     }
 
     public String getStringList(){

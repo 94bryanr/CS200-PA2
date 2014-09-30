@@ -1,3 +1,9 @@
+//Credit to Janet J. Prichard and Frank M. Carrano
+//As the original authors of the code
+//Seen in Java: Walls and Mirrors, Third Edition
+//Slight modifications have been made
+
+//TODO: Make this run with array
 public class MergeSort{
     private static int counter = 0;
 

@@ -83,7 +83,6 @@ public class P2 {
         if(DEBUG == 0){
             webPage.printTerms();
         }
-
     }
 
     public static ArrayList<String> parseInputFile(String filename) {

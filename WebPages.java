@@ -1,8 +1,4 @@
 import java.util.ArrayList;
-//Credit to Janet J. Prichard and Frank M. Carrano
-//As the original authors of the code
-//Seen in Java: Walls and Mirrors, Third Edition
-//Slight modifications have been made
 
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
@@ -86,13 +82,15 @@ public class WebPages {
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
-        ms.mergesort(getTermIndexArray()); // sort by total frequency
+        Term.compareType = 1; //Sets to compare terms by frequency
+        ms.mergesort(termIndex); // sort by total frequency
         System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
         //removes most frequent words
         for (int i = 0; i < n; i++){
             termIndex.remove(termIndex.size()-1);
         }
-        ms.mergesort(getTermIndexArray()); // sort alphabetically
+        Term.compareType = 0; //Sets to compare terms alphabetically
+        ms.mergesort(termIndex); // sort alphabetically
         System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
 
         System.out.println();
