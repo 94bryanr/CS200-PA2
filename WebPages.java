@@ -62,6 +62,9 @@ public class WebPages {
 
     //Prunes out *n* most common words
     public void pruneStopWords(int n){
+        if (n< 1){
+            throw new IllegalArgumentException("negative number");
+        }
         System.out.println();
         ms.getCounter(); //Sets counter to 0
         Term.compareType = 1; //Sets to compare terms by frequency

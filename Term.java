@@ -74,23 +74,21 @@ public class Term implements Comparable {
             int size = name1.length();
             if (name1.length() > name2.length())
                 size = name2.length();
-            for (int i =0; i<size; i++){
-                char word1 = name1.charAt(i);
-                char word2 = name2.charAt(i);
+                for (int i = 0; i < size; i++) {
+                    char word1 = name1.charAt(i);
+                    char word2 = name2.charAt(i);
+                    if (word1 < word2) {
+                        return -1;
+                    }
+                    if (word1 > word2) {
+                        return 1;
+                    }
 
-                if (word1 < word2){
-                    return -1;
                 }
-                if (word1>word2){
-                    return 1;
-                }
-            }
             if (name1.length() < name2.length())
                 return -1;
             else
-            return 1;
-
-
+                return 1;
         }
         if(compareType == 1){
             Integer count1 = this.getTotalFrequency();
