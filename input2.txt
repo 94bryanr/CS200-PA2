@@ -1,0 +1,8 @@
+example1.txt
+example2.txt
+example4.txt
+*EOFs*
+2
+JON
+tiger
+panda
