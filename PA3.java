@@ -23,6 +23,7 @@ public class PA3 {
                 boolean pruneStopWords = false;
                 for (String command : commands) {
                     if (pruneStopWords) {
+                        //TODO: Remove, no number in input
                         webPage.pruneStopWords(Integer.parseInt(command));
                         pruneStopWords = false;
                         continue;
@@ -71,9 +72,5 @@ public class PA3 {
             e.printStackTrace();
         }
         return commands;
-    }
-
-    public static int getDebugState(){
-        return DEBUG;
     }
 }

@@ -2,19 +2,26 @@ import java.util.ArrayList;
 
 public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
-    private ArrayList<Term> termIndex;
+    private BST termIndex;
+
     private MergeSort ms;
+
+    //Number of webpage files
+    private int docCount;
 
     //Constructor
     public WebPages(){
-        termIndex = new ArrayList<Term>();
+        docCount = 0;
+        termIndex = new BST();
     }
 
     //Passes filename to HTMLParser to get parsed array WITH duplicates
     //Calls adds terms to termIndex
     public void addPage(String document){
-    //add to termIndex the parsed words from *document*
+        //add to termIndex the parsed words from *document*
         HTMLParser pageParser = new HTMLParser(document);
+
+        docCount++;
 
         //For each word in our parsed array...
         for(String word: pageParser.getParsedArray()){
@@ -43,7 +50,8 @@ public class WebPages {
         }
 
         //To sort after adding all pages
-        ms.mergesort(termIndex);
+        //No longer needed:
+        //ms.mergesort(termIndex);
     }
 
     private void addNewTerm(String name, String document){
@@ -53,34 +61,11 @@ public class WebPages {
     }
 
     //Iterates through the array of termIndex and prints each word
-    public void printTerms(){
+    public void printTerms() {
         System.out.println("WORDS");
-            for (Term word : termIndex) {
-                System.out.println(word.getName());
+        for (Term word : termIndex) {
+            System.out.println(word.getName());
         }
-    }
-
-    //Prunes out *n* most common words
-    public void pruneStopWords(int n){
-        if (n< 1){
-            throw new IllegalArgumentException("negative number");
-        }
-        System.out.println();
-        ms.getCounter(); //Sets counter to 0
-        Term.compareType = 1; //Sets to compare terms by frequency
-        ms.mergesort(termIndex); // sort by total frequency
-        System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
-        //removes most frequent words
-        for (int i = 0; i < n; i++){
-            termIndex.remove(termIndex.size()-1);
-        }
-        Term.compareType = 0; //Sets to compare terms alphabetically
-        ms.mergesort(termIndex); // sort alphabetically
-        System.out.println("Copies: " + ms.getCounter()); // Prints number of times mergesort ran
-
-        System.out.println();
-        printTerms();
-        System.out.println();
     }
 
     //Prints which pages *word* exist on
@@ -95,5 +80,13 @@ public class WebPages {
             }
         }
         return pages.toArray(new String[pages.size()]);
+    }
+
+    public int getDocCount() {
+        return docCount;
+    }
+
+    public BST getTermIndex() {
+        return termIndex;
     }
 }
