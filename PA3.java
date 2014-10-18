@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class P2 {
+public class PA3 {
     public static final int DEBUG = 0;
 
     public static void main(String[] args) {

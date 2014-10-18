@@ -20,10 +20,7 @@ public class BST {
     }
     public Term get(String word, Boolean printDepth){
         // returns the name of the term
-        // checks to see if printDepth is true and if so then checks to see how deep it exists in the tree 
-    }
-    public void delete(String word){
-        //takes terms out of the BST
-
+        // checks to see if printDepth is true and if so then checks to see how deep it exists in the tree
+        return null;
     }
 }

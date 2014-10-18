@@ -24,23 +24,7 @@ public class Term implements Comparable {
 
     //Updates docsList by one term occurring in *document*
     public void addNewOccurrence(String document) {
-        boolean add = true;
-        for (Occurrence occ : docsList.toArray()) {
-            if(P2.getDebugState() >= 1) {
-                System.out.printf("Checking occ repeat for %s between %s and %s%n",
-                        name, occ.getDocName(), document);
-            }
-            if (occ.getDocName().equals(document)) {
-                occ.incFrequency();
-                add = false;
-            }
-        }
-        if (add) {
-            docsList.insert(document);
-            docFrequency++;
-            if(P2.getDebugState() >= 1)
-                System.out.printf("Increased: %s docFrequency%n", name);
-        }
+        docsList.insert(document);
     }
 
     //Returns the word the term is associated with
@@ -97,8 +81,5 @@ public class Term implements Comparable {
         }
         //System.out.println("ERROR: NO SORTING DEFINED");
         return 0;
-    }
-    public String getStringList(){
-        return docsList.toString().trim();
     }
 }

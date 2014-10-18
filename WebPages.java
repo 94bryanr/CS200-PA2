@@ -96,14 +96,4 @@ public class WebPages {
         }
         return pages.toArray(new String[pages.size()]);
     }
-
-    public int getLength(){
-        return termIndex.size();
-    }
-
-    public Term[] getTermIndexArray(){
-        Term[] words = new Term[0];
-        words = termIndex.toArray(words);
-        return words;
-    }
 }
