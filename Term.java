@@ -19,21 +19,25 @@ public class Term implements Comparable {
 
     //Increases words document frequency by 1
     public void incFrequency(String document) {
+
         docFrequency++;
     }
 
     //Updates docsList by one term occurring in *document*
     public void addNewOccurrence(String document) {
+
         docsList.insert(document);
     }
 
     //Returns the word the term is associated with
     public String getName() {
+
         return name;
     }
 
     //Returns the document frequency of the word
     public int getDocFrequency() {
+
         return docFrequency;
     }
 
