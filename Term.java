@@ -13,8 +13,15 @@ public class Term implements Comparable {
 
     //Constructor
     public Term(String name) {
-        this.name = name;
         docFrequency = 0;
+        this.name = name;
+    }
+
+    //Constructor
+    public Term(String name, String document){
+        docFrequency = 0;
+        this.name = name;
+        docsList.insert(document);
     }
 
     //Increases words document frequency by 1
@@ -27,6 +34,7 @@ public class Term implements Comparable {
     public void addNewOccurrence(String document) {
 
         docsList.insert(document);
+        docFrequency++;
     }
 
     //Returns the word the term is associated with
@@ -83,7 +91,6 @@ public class Term implements Comparable {
             Integer count2 = ((Term) o).getTotalFrequency();
             return count1.compareTo(count2);
         }
-        //System.out.println("ERROR: NO SORTING DEFINED");
         return 0;
     }
 }

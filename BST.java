@@ -12,9 +12,40 @@ public class BST {
         return count;
     }
 
-    public void add(String documentName, String word){
+    public void add(String documentName, String word) {
         //adds a new term or inc frequency if it already exists in BST
-        if(root == null);
+        Term term = new Term(documentName, word);
+        BSTNode node = new BSTNode(term);
+        BSTNode current = root;
+
+        if (current == null) {
+            current = node;
+        }
+
+        boolean added = false;
+        while (!added) {
+            if (current.getTerm().compareTo(node.getTerm()) == 0) {
+                //Equal
+                current.getTerm().addNewOccurrence(documentName);
+                added = true;
+            } else if (current.getTerm().compareTo(node.getTerm()) > 0) {
+                //go left
+                if (current.getLeft() != null)
+                    current = current.getLeft();
+                else {
+                    current.setLeft(node);
+                    added = true;
+                }
+            } else if (current.getTerm().compareTo(node.getTerm()) < 0) {
+                //go right
+                if (current.getRight() != null)
+                    current = current.getRight();
+                else {
+                    current.setRight(node);
+                    added = true;
+                }
+            }
+        }
     }
 
     public String get(String word, Boolean printDepth) {

@@ -48,37 +48,35 @@ public class WebPages {
                 }
             }
         }
-
-        //To sort after adding all pages
-        //No longer needed:
-        //ms.mergesort(termIndex);
     }
 
     private void addNewTerm(String name, String document){
         Term newTerm = new Term(name);
         newTerm.addNewOccurrence(document);
-        termIndex.add(newTerm);
+        termIndex.add(name, document);
     }
 
     //Iterates through the array of termIndex and prints each word
     public void printTerms() {
         System.out.println("WORDS");
-        for (Term word : termIndex) {
-            System.out.println(word.getName());
-        }
+        //Commented Out for Testing
+//        for (Term word : termIndex) {
+//            System.out.println(word.getName());
+//        }
     }
 
     //Prints which pages *word* exist on
     public String[] whichPages(String word) {
         word = word.toLowerCase();
         ArrayList<String> pages = new ArrayList<String>();
-        for(Term term: termIndex){
-            if (term.getName().equals(word)){
-                for(Occurrence occ: term.getDocsList()){
-                    pages.add(occ.getDocName());
-                }
-            }
-        }
+        //Commented Out for Testing
+//        for(Term term: termIndex){
+//            if (term.getName().equals(word)){
+//                for(Occurrence occ: term.getDocsList()){
+//                    pages.add(occ.getDocName());
+//                }
+//            }
+//        }
         return pages.toArray(new String[pages.size()]);
     }
 

@@ -20,18 +20,10 @@ public class PA3 {
             } else {
                 //Scan in files until *EOF* command
                 boolean reachedEOF = false;
-                boolean pruneStopWords = false;
                 for (String command : commands) {
-                    if (pruneStopWords) {
-                        //TODO: Remove, no number in input
-                        webPage.pruneStopWords(Integer.parseInt(command));
-                        pruneStopWords = false;
-                        continue;
-                    }
                     if (command.equals("*EOFs*")) {
                         webPage.printTerms();
                         reachedEOF = true;
-                        pruneStopWords = true;
                         continue;
                     }
                     if (!reachedEOF) {

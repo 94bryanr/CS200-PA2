@@ -12,6 +12,7 @@ public class LinkedOccurrence {
         Occurrence newOcc = new Occurrence(name);
         newOcc.next = head;
         head = newOcc;
+        //TODO: Add duplicate checking
     }
 
     public void printList(){
