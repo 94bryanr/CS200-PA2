@@ -32,7 +32,6 @@ public class Term implements Comparable {
 
     //Updates docsList by one term occurring in *document*
     public void addNewOccurrence(String document) {
-
         docsList.insert(document);
         docFrequency++;
     }

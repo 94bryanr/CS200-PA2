@@ -17,68 +17,62 @@ public class WebPages {
 
     //Passes filename to HTMLParser to get parsed array WITH duplicates
     //Calls adds terms to termIndex
-    //Commented Out for Testing
-
     public void addPage(String document){
-//        //add to termIndex the parsed words from *document*
-//        HTMLParser pageParser = new HTMLParser(document);
-//
-//        docCount++;
-//
-//        //For each word in our parsed array...
-//        for(String word: pageParser.getParsedArray()){
-//
-//            if (termIndex.size() == 0) {
-//                addNewTerm(word, document);
-//            }
-//
-//            else{
-//                boolean add = false;
-//                boolean cont = true;
-//                for(Term term: termIndex){
-//                    if(cont) {
-//                        add = true;
-//                        if (word.equals(term.getName())) {
-//                            term.addNewOccurrence(document);
-//                            cont = false;
-//                            add = false;
-//                        }
-//                    }
-//                }
-//                if(add) {
-//                    addNewTerm(word, document);
-//                }
-//            }
-//        }
+        //add to termIndex the parsed words from *document*
+        HTMLParser pageParser = new HTMLParser(document);
+
+        docCount++;
+
+        //For each word in our parsed array...
+        for(String word: pageParser.getParsedArray()){
+
+            if (termIndex.size() == 0) {
+                addNewTerm(word, document);
+            }
+
+            else{
+                boolean add = false;
+                boolean cont = true;
+                for(Term term: termIndex){
+                    if(cont) {
+                        add = true;
+                        if (word.equals(term.getName())) {
+                            term.addNewOccurrence(document);
+                            cont = false;
+                            add = false;
+                        }
+                    }
+                }
+                if(add) {
+                    addNewTerm(word, document);
+                }
+            }
+        }
     }
 
     private void addNewTerm(String name, String document){
-//        Term newTerm = new Term(name);
-//        newTerm.addNewOccurrence(document);
-//        termIndex.add(name, document);
+        termIndex.add(document, name);
     }
 
     //Iterates through the array of termIndex and prints each word
     public void printTerms() {
         System.out.println("WORDS");
-        //Commented Out for Testing
-//        for (Term word : termIndex) {
-//            System.out.println(word.getName());
-//        }
+        for (Term word : termIndex) {
+            System.out.println(word.getName());
+        }
     }
 
     //Prints which pages *word* exist on
     public String[] whichPages(String word) {
         word = word.toLowerCase();
         ArrayList<String> pages = new ArrayList<String>();
-        //Commented Out for Testing
-//        for(Term term: termIndex){
-//            if (term.getName().equals(word)){
-//                for(Occurrence occ: term.getDocsList()){
-//                    pages.add(occ.getDocName());
-//                }
-//            }
-//        }
+        for(Term term: termIndex){
+            if (term.getName().equals(word)){
+                for(Occurrence occ: term.getDocsList()){
+                    pages.add(occ.getDocName());
+                }
+            }
+        }
         return pages.toArray(new String[pages.size()]);
     }
 

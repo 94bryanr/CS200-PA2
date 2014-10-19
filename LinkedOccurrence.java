@@ -9,10 +9,28 @@ public class LinkedOccurrence {
 
     //Inserts a new Link at the first of the list
     public void insert(String name){
-        Occurrence newOcc = new Occurrence(name);
-        newOcc.next = head;
-        head = newOcc;
-        //TODO: Add duplicate checking
+
+
+        //Duplicate checking
+        boolean add = true;
+        Occurrence toUpdate = null;
+        for(Occurrence occ: this.toArray()){
+            if(occ.getDocName().compareTo(name) == 0){
+                add = false;
+                toUpdate = occ;
+            }
+
+        }
+
+        if(add){
+            Occurrence newOcc = new Occurrence(name);
+            newOcc.next = head;
+            head = newOcc;
+        } else{
+            //If duplicate, add to count
+            toUpdate.incFrequency();
+        }
+
     }
 
     public void printList(){
