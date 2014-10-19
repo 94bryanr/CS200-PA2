@@ -48,6 +48,20 @@ public class PA3 {
                 }
             }
         }
+
+        //TESTING BST(REMOVE WHEN DONE)
+        BST fakeTree = new BST();
+        fakeTree.add("Doc1", "Hello");
+        fakeTree.get("Hello", true);
+        fakeTree.add("Doc3", "Panda");
+        fakeTree.get("Panda", true);
+        fakeTree.add("DocWaffle", "Affle");
+        fakeTree.get("Affle", true);
+        fakeTree.add("DocWaffle", "Ablak");
+        fakeTree.get("Ablak", true);
+        fakeTree.add("DocWaffle", "Aalak");
+        fakeTree.get("Aalak", true);
+        System.out.println(fakeTree.size());
     }
 
 

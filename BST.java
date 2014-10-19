@@ -3,12 +3,12 @@ public class BST {
     private int count;
     private BSTNode root; // middle branch node
 
-    public BST(){
+    public BST() {
         this.count = 0;
         root = null;
     }
 
-    public int size(){
+    public int size() {
         return count;
     }
 
@@ -17,12 +17,14 @@ public class BST {
         Term term = new Term(documentName, word);
         BSTNode node = new BSTNode(term);
         BSTNode current = root;
+        boolean added = false;
 
         if (current == null) {
-            current = node;
+            root = node;
+            count++;
+            added= true;
         }
 
-        boolean added = false;
         while (!added) {
             if (current.getTerm().compareTo(node.getTerm()) == 0) {
                 //Equal
@@ -34,6 +36,7 @@ public class BST {
                     current = current.getLeft();
                 else {
                     current.setLeft(node);
+                    count++;
                     added = true;
                 }
             } else if (current.getTerm().compareTo(node.getTerm()) < 0) {
@@ -42,15 +45,54 @@ public class BST {
                     current = current.getRight();
                 else {
                     current.setRight(node);
+                    count++;
                     added = true;
                 }
             }
         }
     }
 
-    public String get(String word, Boolean printDepth) {
+    public Term get(String word, Boolean printDepth) {
         // returns the name of the term
         // checks to see if printDepth is true and if so then checks to see how deep it exists in the tree
-        return null;
+        BSTNode current = root;
+        Term term = new Term(word);
+        int depth = 0;
+        boolean found = false;
+        while (!found) {
+            if (current.getTerm().getName().compareTo(word) == 0) {
+                //Equal
+                found = true;
+                String docList = "";
+                for(Occurrence doc: current.getTerm().getDocsList())
+                    docList += doc.getDocName();
+                System.out.println("Found: " + word + " in: " + docList);
+            } else if (current.getTerm().getName().compareTo(word) > 0) {
+                //go left
+                if (current.getLeft() != null) {
+                    current = current.getLeft();
+                    depth++;
+                } else {
+                    System.out.println(word + " not found");
+                    return null;
+                }
+
+            } else if (current.getTerm().getName().compareTo(word) < 0) {
+                //go right
+                if (current.getRight() != null) {
+                    current = current.getRight();
+                    depth++;
+                } else {
+                    System.out.println(word + " not found");
+                    return null;
+                }
+            }
+        }
+
+        if (printDepth) {
+            System.out.println("At depth " + depth);
+        }
+
+        return term;
     }
 }

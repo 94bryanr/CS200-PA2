@@ -18,7 +18,7 @@ public class Term implements Comparable {
     }
 
     //Constructor
-    public Term(String name, String document){
+    public Term(String document, String name){
         docFrequency = 0;
         this.name = name;
         docsList.insert(document);

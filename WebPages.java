@@ -17,43 +17,45 @@ public class WebPages {
 
     //Passes filename to HTMLParser to get parsed array WITH duplicates
     //Calls adds terms to termIndex
+    //Commented Out for Testing
+
     public void addPage(String document){
-        //add to termIndex the parsed words from *document*
-        HTMLParser pageParser = new HTMLParser(document);
-
-        docCount++;
-
-        //For each word in our parsed array...
-        for(String word: pageParser.getParsedArray()){
-
-            if (termIndex.size() == 0) {
-                addNewTerm(word, document);
-            }
-
-            else{
-                boolean add = false;
-                boolean cont = true;
-                for(Term term: termIndex){
-                    if(cont) {
-                        add = true;
-                        if (word.equals(term.getName())) {
-                            term.addNewOccurrence(document);
-                            cont = false;
-                            add = false;
-                        }
-                    }
-                }
-                if(add) {
-                    addNewTerm(word, document);
-                }
-            }
-        }
+//        //add to termIndex the parsed words from *document*
+//        HTMLParser pageParser = new HTMLParser(document);
+//
+//        docCount++;
+//
+//        //For each word in our parsed array...
+//        for(String word: pageParser.getParsedArray()){
+//
+//            if (termIndex.size() == 0) {
+//                addNewTerm(word, document);
+//            }
+//
+//            else{
+//                boolean add = false;
+//                boolean cont = true;
+//                for(Term term: termIndex){
+//                    if(cont) {
+//                        add = true;
+//                        if (word.equals(term.getName())) {
+//                            term.addNewOccurrence(document);
+//                            cont = false;
+//                            add = false;
+//                        }
+//                    }
+//                }
+//                if(add) {
+//                    addNewTerm(word, document);
+//                }
+//            }
+//        }
     }
 
     private void addNewTerm(String name, String document){
-        Term newTerm = new Term(name);
-        newTerm.addNewOccurrence(document);
-        termIndex.add(name, document);
+//        Term newTerm = new Term(name);
+//        newTerm.addNewOccurrence(document);
+//        termIndex.add(name, document);
     }
 
     //Iterates through the array of termIndex and prints each word
