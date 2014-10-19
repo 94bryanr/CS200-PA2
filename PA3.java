@@ -16,6 +16,13 @@ public class PA3 {
             WebPages webPage = new WebPages();
             //Commands from input file
             ArrayList<String> commands = parseInputFile(args[0]);
+            ArrayList<String> nonEmptyCommands = new ArrayList<String>();
+            for(String command: commands){
+                if(command.trim().compareTo("") != 0)
+                nonEmptyCommands.add(command);
+            }
+            commands = nonEmptyCommands;
+
             if (commands.size() == 0) {
                 System.out.println("Error: empty file");
             } else {
@@ -25,6 +32,7 @@ public class PA3 {
                     if (command.equals("*EOFs*")) {
                         webPage.printTerms();
                         reachedEOF = true;
+                        System.out.println();
                         continue;
                     }
                     if (!reachedEOF) {

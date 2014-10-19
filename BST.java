@@ -21,9 +21,9 @@ public class BST implements Iterable<Term> {
         BSTNode node = new BSTNode(term);
         BSTNode current = root;
         boolean added = false;
-        System.out.println("\nAdding term: " + word);
+        //System.out.println("\nAdding term: " + word);
         if (current == null) {
-            System.out.println("Replaced root");
+            //System.out.println("Replaced root");
             root = node;
             count++;
             added= true;
@@ -32,17 +32,17 @@ public class BST implements Iterable<Term> {
         while (!added) {
             if (current.getTerm().getName().compareTo(node.getTerm().getName()) == 0) {
                 //Equal
-                System.out.println("Equal terms, adding occurrence");
+                //System.out.println("Equal terms, adding occurrence");
                 current.getTerm().addNewOccurrence(documentName);
                 added = true;
             } else if (current.getTerm().getName().compareTo(node.getTerm().getName()) > 0) {
                 //go left
                 if (current.getLeft() != null) {
                     current = current.getLeft();
-                    System.out.println("Going left");
+                    //System.out.println("Going left");
                 }
                 else {
-                    System.out.println("Adding left node");
+                    //System.out.println("Adding left node");
                     current.setLeft(node);
                     count++;
                     added = true;
@@ -51,10 +51,10 @@ public class BST implements Iterable<Term> {
                 //go right
                 if (current.getRight() != null) {
                     current = current.getRight();
-                    System.out.println("Going right");
+                    //System.out.println("Going right");
                 }
                 else {
-                    System.out.println("Adding right node");
+                    //System.out.println("Adding right node");
                     current.setRight(node);
                     count++;
                     added = true;
@@ -93,7 +93,7 @@ public class BST implements Iterable<Term> {
                 } else {
                     depth++;
                     if(printDepth)
-                        System.out.println("\tAt depth " + depth);
+                        System.out.println("  At depth " + depth);
                     System.out.println(word + " not found");
                     return null;
                 }
@@ -106,15 +106,15 @@ public class BST implements Iterable<Term> {
                 } else {
                     depth++;
                     if(printDepth)
-                        System.out.println("\tAt depth " + depth);
-                    System.out.println(word + " not found");
+                        System.out.println("  At depth " + depth);
+                    System.out.println(originalWord + " not found");
                     return null;
                 }
             }
         }
 
         if (printDepth) {
-            System.out.println("\tAt depth " + depth);
+            System.out.println("  At depth " + depth);
         }
         System.out.println(printOut);
 
