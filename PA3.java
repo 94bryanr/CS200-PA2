@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,44 +31,11 @@ public class PA3 {
                         webPage.addPage(command);
                     }
                     if (reachedEOF) {
-                        String whichPagesString = command;
-                        String appearancesString = "";
-                        boolean found = false;
-                        for (String appearance : webPage.whichPages(command)) {
-                            found = true;
-                            appearancesString = appearance + ", " + appearancesString;
-                        }
-                        if (!found) {
-                            System.out.println(whichPagesString + " not found");
-                        }
-                        if (found) {
-                            appearancesString = appearancesString.substring(0, appearancesString.length() - 2);
-                            System.out.println(command + " found in: " + appearancesString);
-                        }
+                        webPage.getTermIndex().get(command, true);
                     }
                 }
             }
         }
-
-        //TESTING BST(REMOVE WHEN DONE)
-//        BST fakeTree = new BST();
-//        fakeTree.add("Doc1", "Hello");
-//        fakeTree.get("Hello", true);
-//        fakeTree.add("Doc3", "Panda");
-//        fakeTree.get("Panda", true);
-//        fakeTree.add("DocWaffle", "Affle");
-//        fakeTree.get("Affle", true);
-//        fakeTree.add("DocWaffle", "Ablak");
-//        fakeTree.get("Ablak", true);
-//        fakeTree.add("DocWaffle", "Aalak");
-//        fakeTree.get("Aalak", true);
-//        fakeTree.add("Doc2", "Hello");
-//        fakeTree.get("Hello", true);
-//
-//        for(Term term: fakeTree){
-//            System.out.println("Iterator Found: " + term.getName());
-//        }
-//        System.out.println(fakeTree.size());
     }
 
 

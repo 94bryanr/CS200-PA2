@@ -33,7 +33,7 @@ public class HTMLParser {
         // Removes html commands/tags
         parsedArray = removeHTMLCommands(parsedArray);
         // Sorts the array alphanumerically
-        parsedArray = sortAlphanumeric(parsedArray);
+        //parsedArray = sortAlphanumeric(parsedArray);
         this.parsedArray = parsedArray;
     }
 

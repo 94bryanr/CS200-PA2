@@ -21,31 +21,35 @@ public class Term implements Comparable {
     public Term(String document, String name){
         docFrequency = 0;
         this.name = name;
-        docsList.insert(document);
+        addNewOccurrence(document);
     }
 
     //Increases words document frequency by 1
-    public void incFrequency(String document) {
-
+    public void incFrequency() {
         docFrequency++;
     }
 
     //Updates docsList by one term occurring in *document*
     public void addNewOccurrence(String document) {
-        docsList.insert(document);
-        docFrequency++;
+        //Duplicate checking
+        boolean add = true;
+        for(Occurrence occ: docsList.toArray()){
+            if(occ.getDocName().compareTo(document) == 0){
+                add = false;
+                occ.incFrequency();
+            }
+        }
+
+        if(add){
+            docsList.insert(document);
+            incFrequency();
+
+        }
     }
 
     //Returns the word the term is associated with
     public String getName() {
-
         return name;
-    }
-
-    //Returns the document frequency of the word
-    public int getDocFrequency() {
-
-        return docFrequency;
     }
 
     //Returns total count of the word in all documents
@@ -91,5 +95,20 @@ public class Term implements Comparable {
             return count1.compareTo(count2);
         }
         return 0;
+    }
+
+    //Returns frequency of term in specified document
+    public int getInDocumentFrequency(String document){
+        for(Occurrence occ: docsList.toArray()){
+            if(occ.getDocName().compareTo(document) == 0){
+                return occ.getTermFrequency();
+            }
+        }
+        return -1;
+    }
+
+    //Returns total number of documents the term is in
+    public int getDocFrequency() {
+        return docFrequency;
     }
 }

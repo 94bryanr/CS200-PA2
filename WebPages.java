@@ -4,10 +4,8 @@ public class WebPages {
     //Holds list of Term objects associated with each parsed word in web page
     private BST termIndex;
 
-    private MergeSort ms;
-
     //Number of webpage files
-    private int docCount;
+    private static int docCount;
 
     //Constructor
     public WebPages(){
@@ -76,7 +74,7 @@ public class WebPages {
         return pages.toArray(new String[pages.size()]);
     }
 
-    public int getDocCount() {
+    public static int getDocCount() {
         return docCount;
     }
 
