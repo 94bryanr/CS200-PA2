@@ -1,4 +1,6 @@
-public class BST {
+import java.util.Iterator;
+
+public class BST implements Iterable<Term> {
     //initialize private count and root variables
     private int count;
     private BSTNode root; // middle branch node
@@ -18,32 +20,40 @@ public class BST {
         BSTNode node = new BSTNode(term);
         BSTNode current = root;
         boolean added = false;
-
+        //System.out.println("\nAdding term: " + word);
         if (current == null) {
+            //System.out.println("Replaced root");
             root = node;
             count++;
             added= true;
         }
 
         while (!added) {
-            if (current.getTerm().compareTo(node.getTerm()) == 0) {
+            if (current.getTerm().getName().compareTo(node.getTerm().getName()) == 0) {
                 //Equal
+                //System.out.println("Equal terms, adding occurrence");
                 current.getTerm().addNewOccurrence(documentName);
                 added = true;
-            } else if (current.getTerm().compareTo(node.getTerm()) > 0) {
+            } else if (current.getTerm().getName().compareTo(node.getTerm().getName()) > 0) {
                 //go left
-                if (current.getLeft() != null)
+                if (current.getLeft() != null) {
                     current = current.getLeft();
+                    //System.out.println("Going left");
+                }
                 else {
+                    //System.out.println("Adding left node");
                     current.setLeft(node);
                     count++;
                     added = true;
                 }
-            } else if (current.getTerm().compareTo(node.getTerm()) < 0) {
+            } else if (current.getTerm().getName().compareTo(node.getTerm().getName()) < 0) {
                 //go right
-                if (current.getRight() != null)
+                if (current.getRight() != null) {
                     current = current.getRight();
+                    //System.out.println("Going right");
+                }
                 else {
+                    //System.out.println("Adding right node");
                     current.setRight(node);
                     count++;
                     added = true;
@@ -65,7 +75,7 @@ public class BST {
                 found = true;
                 String docList = "";
                 for(Occurrence doc: current.getTerm().getDocsList())
-                    docList += doc.getDocName();
+                    docList = doc.getDocName() + " " + docList;
                 System.out.println("Found: " + word + " in: " + docList);
             } else if (current.getTerm().getName().compareTo(word) > 0) {
                 //go left
@@ -94,5 +104,20 @@ public class BST {
         }
 
         return term;
+    }
+
+    public BSTNode getRoot() {
+        return root;
+    }
+
+    @Override
+    public Iterator<Term> iterator() {
+        return new BSTIterator<Term>(this);
+    }
+
+    public void print(){
+        for(Term term: this){
+            System.out.println("Iterator Found: " + term.getName());
+        }
     }
 }
