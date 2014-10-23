@@ -11,3 +11,4 @@
 !BSTNode.java
 !*.txt
 !Query.java
+!BSTIterator.java
